@@ -5,7 +5,10 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include "print_data.h"
-/*
+#include "version.h"
+#include <openssl/evp.h>
+#include <unistd.h>
+
 char* calculate_checksum(const char* filename) {
     FILE* f = fopen(filename, "rb");
     if (f == NULL) {
@@ -52,8 +55,8 @@ char* calculate_checksum(const char* filename) {
 }
 
 void verify_integrity() {
-    char* expected_checksum = "ed75c03a3c7a9201a96744ba9875655565794254211bbb4beed3f2dcd485e6f6";
-    char* current_checksum = calculate_checksum("sniffer.h");
+    char* expected_checksum = "41d8514b7e3100cab959fd4462afb9e648aa7f9e13167c8c7826e6161a3f46cd";
+    char* current_checksum = calculate_checksum("version.h");
     if (current_checksum == NULL) {
         exit(1);
     }
@@ -64,16 +67,25 @@ void verify_integrity() {
     }
 
     free(current_checksum);
-}*/
+}
 int main(int argc ,char *argv[]){
-  verify_integrity()
+  verify_integrity();
         char *dev;
         pcap_t* handle;
+        int port;
         char error[PCAP_BUF_SIZE];
         struct bpf_program fp;
-        char filter[] = "port 80";
+        char filter[20];
 	bpf_u_int32 ip;
 	bpf_u_int32 netmask;
+	
+  if(argc<3){
+	version(argv[0]);
+	exit(-1);
+    }
+        if(strcmp("-p",argv[1]) == 0 || strcmp("--port",argv[1]) == 0){
+	    port = atoi(argv[2]);
+	    snprintf(filter,sizeof(filter),"port %d",port);
 	dev = pcap_lookupdev(error);
 	if( dev == NULL){
 	  printf("cannot open  the interface ERROR : %s",error);
@@ -91,7 +103,7 @@ int main(int argc ,char *argv[]){
 	    exit(-1);
 	    }
 	if(pcap_compile(handle,&fp,filter,1,netmask) == -1){
-	    printf("cannot parse a fillter \n");
+	    printf("cannot parse a filter \n");
 	    exit(-1);
 	    }
 	if(pcap_setfilter(handle,&fp) == -1){
@@ -101,4 +113,8 @@ int main(int argc ,char *argv[]){
 	pcap_loop(handle,0,data_print,NULL);
 	pcap_close(handle);
 	return 0;
-      }
+	}else{
+	  printf("some went is wrong check your internet connection \n");
+	  }
+
+    }
