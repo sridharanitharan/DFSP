@@ -114,7 +114,8 @@ int main(int argc ,char *argv[]){
 	pcap_close(handle);
 	return 0;
 	}else{
-	  printf("some went is wrong check your internet connection \n");
-	  }
+	  printf("\t\t 📌️ INVALID OPTION 🔹️\n");
+      version(argv[1]);
+	 }
 
     }
