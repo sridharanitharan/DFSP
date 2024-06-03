@@ -34,7 +34,7 @@ This is a simple C program that captures and prints data packets on a specific p
 
 ## Screenshots
 
-![App Screenshot]( )
+![App Screenshot](/image.png)
 
 
 ## Authors
