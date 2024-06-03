@@ -16,10 +16,11 @@ This is a simple C program that captures and prints data packets on a specific p
 
 
 
+
 #### compile the program
 
 ```http
-  gcc -o packet_sniffer packet_sniffer.c -lpcap
+  gcc a.c -o dfps -lpcap -lssl -lcrypto
 
 ```
 #### run the program
