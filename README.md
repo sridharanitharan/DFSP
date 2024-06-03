@@ -20,13 +20,13 @@ This is a simple C program that captures and prints data packets on a specific p
 #### compile the program
 
 ```http
-  gcc a.c -o dfps -lpcap -lssl -lcrypto
+  gcc a.c -o dfsp -lpcap -lssl -lcrypto
 
 ```
 #### run the program
 
 ```http
-  sudo ./dfps
+  sudo ./dfsp
 
 ```
 
