@@ -26,7 +26,8 @@ This is a simple C program that captures and prints data packets on a specific p
 #### run the program
 
 ```http
-  sudo ./packet_sniffer
+  sudo ./dfps
+
 ```
 
 
